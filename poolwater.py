@@ -58,9 +58,17 @@ def main():
     #准备绘制
     figure = plt.figure()
     main_ax = figure.add_subplot(111)
-    main_ax.set(title="水量演变图", xlim=[0,100], ylim=[0,0.15], xlabel="天数", ylabel="水量百分比")
-    for day in range(1, days_total):
-        main_ax.plot(days_limit[day:], [item[day] for item in water_history[day:]], color="red", marker=".")
+    main_ax.set(title="水量演变图", xlim=[0,100], ylim=[0,1], xlabel="天数", ylabel="水量百分比")
+
+    # 每一天，每个日期的水各占多少
+    # for day in range(1, days_total):
+    #     main_ax.plot(days_limit[day:], [item[day] for item in water_history[day:]], color="red", marker=".")
+
+    # 前11 天之内的水占比多少
+    # main_ax.plot(days_limit[10:], [ sum(water_history[day][day - 10:day + 1]) for day in days_limit[10:]],color="red", marker=".")
+
+    #在第100天时，几天之内的水占比多少
+    main_ax.plot(days_limit, [sum(water_history[days_total - 1][days_total - day - 1 : ]) for day in days_limit],color="red", marker=".")
     plt.show()
 
 
